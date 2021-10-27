@@ -1,4 +1,17 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Label } from "@mui/icons-material";
+import {
+  Checkbox,
+  Container,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@mui/material";
+import { Box } from "@mui/system";
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -10,13 +23,18 @@ const AuthorInfo = () => {
   const params = useParams();
 
   const [posts, setPosts] = useState([]);
-  const [author, setAuthor] = useState({ name: "" });
+  const [author, setAuthor] = useState({});
+  const [sortBy, setSortBy] = useState("date");
+  const [isAscending, setIsAscending] = useState(false);
+
   useEffect(() => {
     const retriveData = async () => {
       try {
         const response = await api.get(`/authors/${params.id}`);
         setAuthor(response.data);
-      } catch (err) {}
+      } catch (err) {
+        console.log(err);
+      }
     };
     retriveData();
   }, [params.id]);
@@ -28,13 +46,25 @@ const AuthorInfo = () => {
         const authorsPost = data.filter((post) => {
           return post.authorId === Number(params.id);
         });
-        setPosts(authorsPost);
-        console.log(data);
-        console.log(authorsPost);
-      } catch (err) {}
+        let sortedPosts = [];
+
+        if (sortBy === "date") {
+          sortedPosts = authorsPost.sort(
+            (a, b) => new Date(a.publishedDate) - new Date(b.publishedDate)
+          );
+        } else if (sortBy === "likes") {
+          sortedPosts = authorsPost.sort((a, b) => a.likes - b.likes);
+        }
+        if (isAscending) {
+          sortedPosts.reverse();
+        }
+        setPosts(sortedPosts);
+      } catch (err) {
+        console.log(err);
+      }
     };
     retriveData();
-  }, [params.id]);
+  }, [params.id, isAscending, sortBy]);
 
   return (
     <React.Fragment>
@@ -48,13 +78,45 @@ const AuthorInfo = () => {
       </Container>
       <br />
       <br />
-      <Container>
-        <Typography variant="h4">Posts from {author.name}</Typography>
+      <Container sx={{ marginBottom: "2rem" }}>
+        <Box display="flex" justifyContent="space-between">
+          <Typography variant="h4">Posts from {author.name}</Typography>
+          <Box>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Sort by</FormLabel>
+              <RadioGroup
+                row
+                aria-label="sortby"
+                name="row-radio-buttons-group"
+              >
+                <FormControlLabel
+                  value="date"
+                  onClick={() => setSortBy("date")}
+                  control={<Radio />}
+                  label="Date"
+                />
+                <FormControlLabel
+                  value="likes"
+                  onClick={() => setSortBy("likes")}
+                  control={<Radio />}
+                  label="Likes"
+                />
+              </RadioGroup>
+              <FormControlLabel
+                checked={isAscending}
+                onChange={() => setIsAscending(!isAscending)}
+                control={<Checkbox />}
+                label="Ascending order"
+              />
+            </FormControl>
+          </Box>
+        </Box>
+        <Divider />
       </Container>
       <Container>
         <Grid container spacing="18">
           {posts.map((post) => (
-            <PostCard key={post.id} />
+            <PostCard key={post.id} post={post} />
           ))}
         </Grid>
       </Container>

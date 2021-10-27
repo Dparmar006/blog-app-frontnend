@@ -18,8 +18,10 @@ const Home = () => {
   return (
     <React.Fragment>
       <BlogAppBar />
-      <Container maxWidth="xl">
-        <Typography variant="h2">Authors</Typography>
+      <Container>
+        <Typography variant="h2" sx={{ marginY: "1rem" }}>
+          Authors
+        </Typography>
         <Grid container spacing="18">
           {authors.map((author) => {
             return <AuthorCard author={author} key={author.id} />;
