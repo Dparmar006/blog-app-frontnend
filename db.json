@@ -1,0 +1,81 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "authorId": 1,
+      "title": "First post",
+      "author": "@codex",
+      "publishedDate": "2012-06-21",
+      "likes": 3,
+      "comments": 2,
+      "body": "Ipsum mollit aliquip deserunt magna qui aliquip ex magna sunt Lorem laborum nisi esse. Quis velit proident Lorem veniam est est aute in. Qui mollit ullamco est anim irure ullamco laborum. Dolor ut non cillum cupidatat velit tempor consectetur. Fugiat ex aliquip laboris est proident reprehenderit tempor labore aliqua aute consequat velit quis qui."
+    },
+    {
+      "id": 2,
+      "authorId": 1,
+      "title": "Google pixel",
+      "author": "@codex",
+      "publishedDate": "2008-02-23",
+      "likes": 1233,
+      "comments": 2,
+      "body": "Ipsum mollit aliquip deserunt magna qui aliquip ex magna sunt Lorem laborum nisi esse. Quis velit proident Lorem veniam est est aute in. Qui mollit ullamco est anim irure ullamco laborum. Dolor ut non cillum cupidatat velit tempor consectetur. Fugiat ex aliquip laboris est proident reprehenderit tempor labore aliqua aute consequat velit quis qui."
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1,
+      "name": "Codex",
+      "authorId": 1
+    },
+    {
+      "id": 2,
+      "body": "Another comment",
+      "postId": 2,
+      "name": "KR$NA",
+      "authorId": 1
+    },
+    {
+      "id": 3,
+      "body": "Elit amet duis magna labore.",
+      "postId": 2,
+      "name": "Codex",
+      "authorId": 2
+    },
+    {
+      "id": 4,
+      "body": "Elit amet duis magna labore.",
+      "postId": 1,
+      "name": "KR$NA",
+      "authorId": 2
+    }
+  ],
+  "likes": [{ "id": 1, "body": "some comment", "postId": 1 }],
+  "authors": [
+    {
+      "id": 1,
+      "name": "Codex",
+      "username": "@codex",
+      "bio": "Dolor nulla velit exercitation aute duis nulla do eu et ipsum sint veniam."
+    },
+    {
+      "id": 2,
+      "name": "KR$NA",
+      "username": "@krishna",
+      "bio": "Dolor nulla velit exercitation aute duis nulla do eu et ipsum sint veniam."
+    },
+    {
+      "id": 3,
+      "name": "Legend",
+      "username": "@legendary",
+      "bio": "Dolor nulla velit exercitation aute duis nulla do eu et ipsum sint veniam."
+    },
+    {
+      "id": 4,
+      "name": "Ragh",
+      "username": "@raghister",
+      "bio": "Dolor nulla velit exercitation aute duis nulla do eu et ipsum sint veniam."
+    }
+  ]
+}
