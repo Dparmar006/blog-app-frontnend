@@ -1,4 +1,3 @@
-import { Label } from "@mui/icons-material";
 import {
   Checkbox,
   Container,
@@ -16,8 +15,8 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import api from "../apiHelper";
-import BlogAppBar from "../components/BlogAppBar";
 import PostCard from "../components/PostCard";
+import DefaultLayout from "../Layouts/DefaultLayout";
 
 const AuthorInfo = () => {
   const params = useParams();
@@ -67,8 +66,7 @@ const AuthorInfo = () => {
   }, [params.id, isAscending, sortBy]);
 
   return (
-    <React.Fragment>
-      <BlogAppBar />
+    <DefaultLayout>
       <Container>
         <Typography variant="h3">{author.name}</Typography>
         <Typography variant="h6" color="textsecondary">
@@ -120,7 +118,7 @@ const AuthorInfo = () => {
           ))}
         </Grid>
       </Container>
-    </React.Fragment>
+    </DefaultLayout>
   );
 };
 

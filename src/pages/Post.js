@@ -2,20 +2,17 @@ import { Favorite } from "@mui/icons-material";
 import {
   Avatar,
   Card,
-  CardContent,
-  CardHeader,
   Container,
   Divider,
   Grid,
-  ToggleButton,
   Typography,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { Box, typography } from "@mui/system";
+import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import api from "../apiHelper";
-import BlogAppBar from "../components/BlogAppBar";
+import DefaultLayout from "../Layouts/DefaultLayout";
 
 const Post = () => {
   const { id } = useParams();
@@ -46,8 +43,7 @@ const Post = () => {
   }, [id]);
 
   return (
-    <React.Fragment>
-      <BlogAppBar />
+    <DefaultLayout>
       <Container sx={{ marginTop: "2rem" }}>
         <Box display="flex" justifyContent="space-between">
           <div>
@@ -90,7 +86,7 @@ const Post = () => {
           </Grid>
         </Typography>
       </Container>
-    </React.Fragment>
+    </DefaultLayout>
   );
 };
 

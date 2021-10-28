@@ -2,7 +2,7 @@ import { Container, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import api from "../apiHelper";
 import AuthorCard from "../components/AuthorCard";
-import BlogAppBar from "../components/BlogAppBar";
+import DefaultLayout from "../Layouts/DefaultLayout";
 const Home = () => {
   const [authors, setAuthors] = useState([]);
   useEffect(() => {
@@ -16,8 +16,7 @@ const Home = () => {
   }, []);
 
   return (
-    <React.Fragment>
-      <BlogAppBar />
+    <DefaultLayout>
       <Container>
         <Typography variant="h2" sx={{ marginY: "1rem" }}>
           Authors
@@ -28,7 +27,7 @@ const Home = () => {
           })}
         </Grid>
       </Container>
-    </React.Fragment>
+    </DefaultLayout>
   );
 };
 
