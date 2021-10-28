@@ -1,16 +1,23 @@
 import { Container, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import api from "../apiHelper";
-import AuthorCard from "../components/AuthorCard";
+import PostCard from "../components/PostCard";
 import DefaultLayout from "../Layouts/DefaultLayout";
-const Home = () => {
-  const [authors, setAuthors] = useState([]);
+
+const MostLikedPosts = () => {
+  const [posts, setPosts] = useState([]);
+
   useEffect(() => {
     const retriveData = async () => {
       try {
-        const response = await api.get("/authors");
-        setAuthors(response.data);
-      } catch (err) {}
+        const { data } = await api.get(`/posts`);
+        const sortedPost = data.sort((a, b) => {
+          return a.likes - b.likes;
+        });
+        setPosts(sortedPost.reverse().slice(0, 10));
+      } catch (err) {
+        console.log(err);
+      }
     };
     retriveData();
   }, []);
@@ -19,16 +26,16 @@ const Home = () => {
     <DefaultLayout>
       <Container>
         <Typography variant="h4" sx={{ marginY: "1rem" }}>
-          Authors
+          Most liked posts
         </Typography>
         <Grid container spacing="18">
-          {authors.map((author) => {
-            return <AuthorCard author={author} key={author.id} />;
-          })}
+          {posts.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
         </Grid>
       </Container>
     </DefaultLayout>
   );
 };
 
-export default Home;
+export default MostLikedPosts;
