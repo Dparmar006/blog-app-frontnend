@@ -95,7 +95,13 @@ export default function DefaultLayout({ children }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ cursor: "pointer" }}
+            onClick={() => history.push("/")}
+          >
             Blog
           </Typography>
         </Toolbar>
@@ -130,10 +136,14 @@ export default function DefaultLayout({ children }) {
               path: "/",
               icon: <Home />,
             },
-          ].map((text, index) => (
-            <ListItem button key={text} onClick={() => history.push(text.path)}>
-              <ListItemIcon>{text.icon}</ListItemIcon>
-              <ListItemText primary={text.title} />
+          ].map((menuItem, index) => (
+            <ListItem
+              button
+              key={menuItem}
+              onClick={() => history.push(menuItem.path)}
+            >
+              <ListItemIcon>{menuItem.icon}</ListItemIcon>
+              <ListItemText primary={menuItem.title} />
             </ListItem>
           ))}
         </List>

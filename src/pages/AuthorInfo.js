@@ -15,6 +15,7 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import api from "../apiHelper";
+import LoadingDivison from "../components/LoadingDivison";
 import PostCard from "../components/PostCard";
 import DefaultLayout from "../Layouts/DefaultLayout";
 
@@ -69,7 +70,7 @@ const AuthorInfo = () => {
     <DefaultLayout>
       <Container>
         <Typography variant="h3">{author.name}</Typography>
-        <Typography variant="h6" color="textsecondary">
+        <Typography variant="h6" color="textSecondary">
           {author.username}
         </Typography>
         <Typography>{author.bio}</Typography>
@@ -113,9 +114,11 @@ const AuthorInfo = () => {
       </Container>
       <Container>
         <Grid container spacing="18">
-          {posts.map((post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
+          {posts.length === 0 ? (
+            <LoadingDivison loading={false} />
+          ) : (
+            posts.map((post) => <PostCard key={post.id} post={post} />)
+          )}
         </Grid>
       </Container>
     </DefaultLayout>

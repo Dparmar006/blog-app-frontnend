@@ -1,7 +1,8 @@
-import { Favorite } from "@mui/icons-material";
+import { CommentOutlined, Favorite } from "@mui/icons-material";
 import {
   Avatar,
   Card,
+  CardHeader,
   Container,
   Divider,
   Grid,
@@ -10,7 +11,7 @@ import {
 import { red } from "@mui/material/colors";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import api from "../apiHelper";
 import DefaultLayout from "../Layouts/DefaultLayout";
 
@@ -18,7 +19,7 @@ const Post = () => {
   const { id } = useParams();
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
-
+  const history = useHistory();
   useEffect(() => {
     const retriveData = async () => {
       try {
@@ -29,7 +30,8 @@ const Post = () => {
       }
     };
     retriveData();
-  });
+  }, [id]);
+
   useEffect(() => {
     const retriveData = async () => {
       try {
@@ -57,10 +59,16 @@ const Post = () => {
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ color: red[400] }}
+            // sx={{ color: red[400] }}
           >
             {post.likes}
-            <Favorite />
+            <Favorite color={"red"} />{" "}
+            <Divider
+              orientation="vertical"
+              sx={{ margin: "1rem", height: "1rem" }}
+            />
+            {post.comments}
+            <CommentOutlined />
           </Box>
         </Box>
         <Divider sx={{ marginY: "1rem" }} />
@@ -68,17 +76,34 @@ const Post = () => {
         <Divider sx={{ marginY: "1rem" }} />
       </Container>
       <Container>
-        <Typography color="GrayText" variant="h4">
+        <Typography color="GrayText" variant="h4" marginBottom="8">
           Comments
           <Grid container spacing="18">
             {comments.map((comment) => {
               return (
-                <Grid item xl={3} lg={4} md={6} xs={12}>
-                  <Card sx={{ padding: "1rem" }}>
-                    <Box>
-                      <Avatar sx={{ bgColor: red[500] }}>R</Avatar>
-                    </Box>
-                    <Typography>{comment.body}</Typography>
+                <Grid
+                  item
+                  xl={3}
+                  lg={4}
+                  md={6}
+                  xs={12}
+                  onClick={() => history.push(`/author/${comment.authorId}`)}
+                >
+                  <Card sx={{ padding: "1rem", cursor: "pointer" }}>
+                    <CardHeader
+                      avatar={
+                        <Avatar sx={{ bgColor: red[500] }}>
+                          {comment.name[0]}
+                        </Avatar>
+                      }
+                      title={
+                        <Typography variant="h6"> {comment.name} </Typography>
+                      }
+                    />
+                    <Box></Box>
+                    <Typography sx={{ paddingX: "1rem" }}>
+                      {comment.body}
+                    </Typography>
                   </Card>
                 </Grid>
               );

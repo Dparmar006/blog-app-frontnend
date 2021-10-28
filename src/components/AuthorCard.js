@@ -21,7 +21,6 @@ export default function AuthorCard({ author }) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">View posts</Button>
           <Button
             onClick={() => {
               history.push(`/author/${author.id}`);
